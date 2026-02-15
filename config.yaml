@@ -1,0 +1,18 @@
+apify:
+  token: ""  # Set via APIFY_TOKEN env var or here
+
+craigslist:
+  actor_id: "fatihtahta/craigslist-scraper"
+  # Craigslist search URLs to scrape. Encode your filters (make, model, year,
+  # price, location) directly in the URL query string.
+  # Example: cars & trucks in NYC, $5k-$25k, 2018+
+  search_urls:
+    - "https://newyork.craigslist.org/search/cta?min_price=5000&max_price=25000&min_auto_year=2018&purveyor=owner"
+
+scoring:
+  min_sample_size: 5
+  deal_threshold: -1.0
+  exceptional_threshold: -2.0
+
+database:
+  path: "./car_deals.db"

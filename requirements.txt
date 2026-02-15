@@ -1,0 +1,2 @@
+apify-client>=1.6.0     # Apify API client for running actors
+pyyaml>=6.0             # Config file parsing
