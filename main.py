@@ -136,6 +136,7 @@ def cmd_stats(config: dict, db: Database):
 def main():
     parser = argparse.ArgumentParser(description="Used Car Deal Scraper")
     parser.add_argument("--config", default="config.yaml", help="Path to config file")
+    parser.add_argument("--token", help="Apify API token (or set APIFY_TOKEN env var, or put in config.yaml)")
 
     subparsers = parser.add_subparsers(dest="command", help="Command to run")
 
@@ -153,6 +154,11 @@ def main():
         sys.exit(1)
 
     config = load_config(args.config)
+
+    # Allow token from --token flag, env var, or config.yaml
+    if args.token:
+        config.setdefault("apify", {})["token"] = args.token
+
     db_path = config.get("database", {}).get("path", "./car_deals.db")
     db = Database(db_path)
 
