@@ -8,7 +8,7 @@
 #   4. Paste it below
 # ============================================================
 apify:
-  token: ""
+  token: "apify_api_2tuf3hILcco5y0k8ky1rF1iJmoDnVg2K2KEg"
 
 # ============================================================
 # STEP 2: Customize your car search (or leave the default)
