@@ -10,6 +10,7 @@ Usage:
 
 import argparse
 import logging
+import os
 import sys
 
 import yaml
@@ -37,6 +38,22 @@ def load_config(path: str = "config.yaml") -> dict:
 
 def cmd_scrape(config: dict, db: Database):
     """Scrape Craigslist and score the results."""
+    token = config.get("apify", {}).get("token") or os.environ.get("APIFY_TOKEN")
+    if not token:
+        print("\n" + "=" * 60)
+        print(" ERROR: No Apify API token configured!")
+        print("=" * 60)
+        print()
+        print(" To fix this, open config.yaml and paste your token")
+        print(" on the line that says:  token: \"\"")
+        print()
+        print(" Don't have a token yet?")
+        print("   1. Go to https://apify.com (free signup)")
+        print("   2. Profile icon -> Settings -> Integrations")
+        print("   3. Copy your Personal API token")
+        print()
+        sys.exit(1)
+
     logger.info("Starting Craigslist scrape...")
     run_id = db.log_scrape_start("craigslist")
     errors = None

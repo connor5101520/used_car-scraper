@@ -1,18 +1,41 @@
+# ============================================================
+# STEP 1: Paste your Apify API token below (between the quotes)
+#
+# To get a token:
+#   1. Go to https://apify.com and sign up (free tier available)
+#   2. Click your profile icon -> Settings -> Integrations
+#   3. Copy your "Personal API token"
+#   4. Paste it below
+# ============================================================
 apify:
-  token: ""  # Set via APIFY_TOKEN env var or here
+  token: ""
 
+# ============================================================
+# STEP 2: Customize your car search (or leave the default)
+#
+# Each URL is a Craigslist "cars & trucks" search.
+# Go to craigslist.org, search for the cars you want,
+# then copy the URL from your browser and paste it here.
+#
+# The example below searches:
+#   - New York area
+#   - $5,000 to $25,000
+#   - 2018 or newer
+#   - Owner listings only (no dealers)
+# ============================================================
 craigslist:
   actor_id: "fatihtahta/craigslist-scraper"
-  # Craigslist search URLs to scrape. Encode your filters (make, model, year,
-  # price, location) directly in the URL query string.
-  # Example: cars & trucks in NYC, $5k-$25k, 2018+
+  limit: 100
   search_urls:
     - "https://newyork.craigslist.org/search/cta?min_price=5000&max_price=25000&min_auto_year=2018&purveyor=owner"
 
+# ============================================================
+# STEP 3 (optional): Scoring settings — defaults are fine
+# ============================================================
 scoring:
-  min_sample_size: 5
-  deal_threshold: -1.0
-  exceptional_threshold: -2.0
+  min_sample_size: 5      # Need at least 5 similar cars to score a deal
+  deal_threshold: -1.0    # Score below this = "Good Deal"
+  exceptional_threshold: -2.0  # Score below this = "Exceptional Deal"
 
 database:
   path: "./car_deals.db"
