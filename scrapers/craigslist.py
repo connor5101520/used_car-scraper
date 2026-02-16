@@ -246,6 +246,12 @@ def scrape(config: dict) -> list[dict]:
             )
             logger.info(f"Got {len(dataset_items)} raw items from Apify")
 
+            # Log the first raw item so we can see the actual field names
+            if dataset_items:
+                first = dataset_items[0]
+                logger.info(f"Sample raw item keys: {list(first.keys())}")
+                logger.info(f"Sample raw item: {first}")
+
             for item in dataset_items:
                 normalized = _normalize_listing(item)
                 # Only keep listings that have at least a title and price
